@@ -1,18 +1,17 @@
 {
-  "name": "fastify-xadd-mlk",
+  "name": "fastify-auth-mlk",
   "version": "0.1.0",
-  "description": "HTTP microservice to POST to Redis stream",
+  "description": "Provide register and login endpoints for simple bearer token auth.  ",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:curl": "NODE_ENV=development sh bin/curl.sh",
-    "test:print": "NODE_ENV=development sh bin/print.sh",
+    "test:bash": "NODE_ENV=development sh bin/test.sh",
     "start": "node lib/server",
     "start:dev": "NODE_ENV=development node lib/server"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:evanx/fastify-xadd-mlk.git"
+    "url": "git@github.com:evanx/fastify-auth-mlk.git"
   },
   "keywords": [
     "Redis"

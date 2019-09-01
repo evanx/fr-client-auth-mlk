@@ -8,7 +8,7 @@ module.exports = {
     keyPrefix: 'fr:',
   },
   session: {
-    ttl: 3690 * 1000,
+    ttlSeconds: 3690,
   },
   bcrypt: {
     rounds: 12,

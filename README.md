@@ -1,24 +1,34 @@
 # fastify-auth-mlk
 
-Provide /register and /login endpoints for simple API bearer token auth.
+Provide /register and /login endpoints for simple Redis-based API bearer token auth.
 
-See 
+See https://github.com/evanx/fastify-auth-mlk/blob/master/bin/test.sh
 
 ## /register
 
-client - the ID of the client 
+client - the ID of the client
 secret - the secret credentials chosen by the client
-regToken - the token provided for registration 
+regToken - the token provided for registration
 
-## /login 
+### Result
 
-client - the ID of the client 
+The secret is hashed using Bcrypt and stored in Redis.
+
+See https://github.com/kelektiv/node.bcrypt.js
+
+## /login
+
+client - the ID of the client
 secret - the secret credentials chosen by the client
 
-Returns: 
+### Returns
+
 token - a session token
 
 ## /me
 
-Requires header: `Authorization: Bearer {client}:{token}`
+When logged in, include the session token in the following header:
 
+```
+Authorization: Bearer {client}:{token}
+```
