@@ -27,7 +27,8 @@ redis-cli hset fr:client:test-client:h regBy 1777000111000
 _hgetall fr:client:test-client:h
 
 echo '☸ /register'
-curl -s -X 'POST' -d 'client=test-client&secret=my-secret&regToken=test-regToken' \
+curl -s -X 'POST' \
+  -d 'client=test-client&secret=my-secret&regToken=test-regToken' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H "Accept: application/json" \
   http://127.0.0.1:3000/register | jq -r '.code' | grep -q '^200$'
@@ -40,16 +41,18 @@ token=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
   http://127.0.0.1:3000/login | jq -r '.token'`
 echo "☣ $token"
 
-echo '☸ /me'
-curl -s -H 'Accept: application/json' -H "Authorized: Bearer test-client:$token" \
-  'http://127.0.0.1:3000/me' | jq -r '.client' | grep -q '^test-client$'
-
 echo '☰ keys'
 redis-cli keys 'fr:*'
 
 _hgetall fr:count:login:h
 _hgetall fr:count:register:h
+
+echo
+
 _hgetall fr:client:test-client:h
 _hgetall fr:session:$token:h
 _ttl fr:session:$token:h
 
+echo
+echo '✅ OK'
+echo

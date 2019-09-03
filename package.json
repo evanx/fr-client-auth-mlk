@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:bash": "NODE_ENV=development sh bin/test.sh",
-    "start": "node lib/server",
-    "start:dev": "NODE_ENV=development node lib/server"
+    "start": "node lib/server"
   },
   "repository": {
     "type": "git",
