@@ -27,12 +27,25 @@ https://github.com/evanx/fastify-auth-mlk/blob/master/lib/server.js
 ### /register
 
 - `client` - the ID of the client
-- `secret` - the secret credentials chosen by the client
+- `secret` - the secret chosen by the client
 - `regToken` - the token provided for registration
+
+The client might generate its secret as follows:
+
+```shell
+openssl rand 24 -base64
+```
+
+```shell
+TTDJ2uqo6VxIvaqiX52xEn8b2daxEhFV
+```
 
 #### Requires
 
-- hashes key `client:${client}:h` with fields `regToken`, `regBy`
+Hashes key `client:${client}:h` with fields:
+
+- `regToken` - a token issued to the client for registration
+- `regBy` - epoch deadline for registration
 
 ```javascript
 const [regTokenRes, regBy] = await redis.hmget(
@@ -48,6 +61,11 @@ The secret is hashed using Bcrypt and stored in Redis.
 
 See https://github.com/kelektiv/node.bcrypt.js
 
+```javascript
+const bcryptRes = await bcrypt.hash(secret, config.bcrypt.rounds)
+await redis.hset(`client:${client}:h`, 'bcrypt', bcryptRes)
+```
+
 ### /login
 
 - `client` - the ID of the client
@@ -55,15 +73,30 @@ See https://github.com/kelektiv/node.bcrypt.js
 
 #### Requires
 
-- hashes key `client:${client}:h` with field `bcrypt`
+Hashes key `client:${client}:h` with field:
+
+- `bcrypt` - the `/register` secret, hashed and salted using Bcrypt
 
 ```javascript
 const hash = await redis.hget(`client:${client}:h`, 'bcrypt')
 ```
 
+and
+
+```javascript
+await bcrypt.compare(secret, hash)
+```
+
 #### Returns
 
 - `token` - a session token
+
+```
+const randomToken = () =>
+  Math.random()
+    .toString(36)
+    .substring(2)
+```
 
 ## Related
 
