@@ -49,6 +49,15 @@ Hashes key `client:${client}:h` with fields:
 - `regToken` - a token issued to the client for registration
 - `regBy` - epoch deadline for registration
 
+We might authorise the registration as follows:
+
+```shell
+redis-cli hset fr:client:test-client:h regToken test-regToken
+redis-cli hset fr:client:test-client:h regBy 1567495717000
+```
+
+##### Implementation
+
 ```javascript
 const [regTokenRes, regBy] = await redis.hmget(
   `client:${client}:h`,
@@ -57,18 +66,13 @@ const [regTokenRes, regBy] = await redis.hmget(
 )
 ```
 
-We might authorise the registration as follows:
-
-```shell
-redis-cli hset fr:client:test-client:h regToken test-regToken
-redis-cli hset fr:client:test-client:h regBy 1567495717000
-```
-
 #### Result
 
 The secret is hashed using Bcrypt and stored in Redis.
 
 See https://github.com/kelektiv/node.bcrypt.js
+
+##### Implementation
 
 ```javascript
 const bcryptRes = await bcrypt.hash(secret, config.bcrypt.rounds)
@@ -86,11 +90,11 @@ Hashes key `client:${client}:h` with field:
 
 - `bcrypt` - the `/register` secret, hashed and salted using Bcrypt
 
+##### Implementation
+
 ```javascript
 const hash = await redis.hget(`client:${client}:h`, 'bcrypt')
 ```
-
-and
 
 ```javascript
 await bcrypt.compare(secret, hash)
@@ -100,7 +104,11 @@ await bcrypt.compare(secret, hash)
 
 - `token` - a session token
 
-```
+##### Implementation
+
+We generate the session token using `Math.random()` as follows.
+
+```javascript
 const randomToken = () =>
   Math.random()
     .toString(36)
