@@ -42,6 +42,8 @@ TTDJ2uqo6VxIvaqiX52xEn8b2daxEhFV
 
 #### Requires
 
+Pre-authorisation of the registration via:
+
 Hashes key `client:${client}:h` with fields:
 
 - `regToken` - a token issued to the client for registration
@@ -53,6 +55,13 @@ const [regTokenRes, regBy] = await redis.hmget(
   'regToken',
   'regBy',
 )
+```
+
+We might authorise the registration as follows:
+
+```shell
+redis-cli hset fr:client:test-client:h regToken test-regToken
+redis-cli hset fr:client:test-client:h regBy 1567495717000
 ```
 
 #### Result
