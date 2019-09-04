@@ -1,6 +1,6 @@
 # fastify-auth-mlk
 
-Provide /register and /login endpoints for simple Redis-based API bearer token auth.
+Provide `/register` and `/login` endpoints for Redis-based API bearer token auth.
 
 ## Usage
 
@@ -153,7 +153,7 @@ We compare the provided `secret` to the `hash.`
 await bcrypt.compare(secret, hash)
 ```
 
-We generate a session token using `Math.random().`
+We generate a session `token` using `Math.random().`
 
 ```javascript
 const randomToken = () =>
