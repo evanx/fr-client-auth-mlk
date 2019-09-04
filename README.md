@@ -10,10 +10,13 @@ The Administrator will generate a registration token and deadline.
 
 ```shell
 regToken=`node bin/bcrypt.js hash test-regToken`
+```
+
+```shell
 regBy=`node -e 'console.log(Date.now()+3600*1000)'`
 ```
 
-The registration details namely `regToken` and `regBy,` are stored in Redis.
+The registration details, namely `regToken` and `regBy,` are stored in Redis.
 
 ```shell
 redis-cli hset fr:client:test-client:h regToken "${regToken}"
