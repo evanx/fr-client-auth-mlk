@@ -8,7 +8,7 @@
       "program": "${workspaceFolder}/lib/server",
       "outputCapture": "std",
       "env": {
-        "NODE_ENV": "integration"
+        "NODE_ENV": "development"
       }
     }
   ]
