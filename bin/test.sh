@@ -37,7 +37,7 @@ redis-cli del fr:client:test-client:h
 regBy=`node -e 'console.log(Date.now()+3600*1000)'`
 regToken=`node bin/bcrypt.js hash test-regToken`
 redis-cli hset fr:client:test-client:h regToken "${regToken}"
-redis-cli hset fr:client:test-client:h regBy ${regBy} 
+redis-cli hset fr:client:test-client:h regBy "${regBy}"
 
 _hgetall fr:client:test-client:h
 
@@ -62,13 +62,9 @@ redis-cli keys 'fr:*'
 _hgetall fr:count:login:h
 _hgetall fr:count:register:h
 
-echo
-
 _hgetall fr:client:test-client:h
 _hgetall fr:session:$token:h
 _ttl fr:session:$token:h
 _hget fr:session:$token:h client | grep '^test-client$'
 
 echo '✅ OK'
-
-echo
