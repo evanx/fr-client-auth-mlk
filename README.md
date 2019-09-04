@@ -6,7 +6,7 @@ Provide /register and /login endpoints for simple Redis-based API bearer token a
 
 See https://github.com/evanx/fastify-auth-mlk/blob/master/bin/test.sh
 
-The Administrator will generate a registration token and deadline.
+The Administrator will generate a registration token and deadline for a client e.g. `test-client.`
 
 ```shell
 regToken=`node bin/bcrypt.js hash test-regToken`
@@ -16,7 +16,7 @@ regToken=`node bin/bcrypt.js hash test-regToken`
 regBy=`node -e 'console.log(Date.now()+3600*1000)'`
 ```
 
-The registration details, namely `regToken` and `regBy,` are stored in Redis.
+The registration details, namely `regToken` and `regBy,` are stored in Redis for the `client.`
 
 ```shell
 redis-cli hset fr:client:test-client:h regToken "${regToken}"
