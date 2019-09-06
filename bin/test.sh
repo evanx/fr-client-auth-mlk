@@ -45,14 +45,14 @@ echo '☸ /register'
 curl -s -X 'POST' \
   -d 'client=test-client&secret=my-secret&regToken=test-regToken' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H "Accept: application/json" \
+  -H 'Accept: application/json' \
   http://127.0.0.1:3000/register | jq -r '.code' | grep -q '^200$'
 
 
 echo '☸ /login'
 token=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H "Accept: application/json" \
+  -H 'Accept: application/json' \
   http://127.0.0.1:3000/login | jq -r '.token'`
 echo "☣ $token"
 

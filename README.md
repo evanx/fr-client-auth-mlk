@@ -35,7 +35,7 @@ The Client registers their `secret` using the `regToken` provided by the Adminis
 curl -s -X 'POST' \
   -d 'client=test-client&secret=my-secret&regToken=test-regToken' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H "Accept: application/json" \
+  -H 'Accept: application/json' \
   http://127.0.0.1:3000/register
 ```
 
@@ -44,7 +44,7 @@ The Client logs in using their `secret,` and receives a session token.
 ```shell
 token=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H "Accept: application/json" \
+  -H 'Accept: application/json' \
   http://127.0.0.1:3000/login | jq -r '.token'`
 ```
 
@@ -201,7 +201,7 @@ fastify.register(require('fastify-bearer-auth'), {
     return false
   },
   errorResponse: err => {
-    return { code: 401, error: err.message }
+    return { code: 401, message: err.message }
   },
 })
 ```
