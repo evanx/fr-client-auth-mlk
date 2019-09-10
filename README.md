@@ -1,5 +1,7 @@
 # fastify-auth-mlk
 
+Microservice providing /register and /login endpoints for single client auth.
+
 Provide `/register` and `/login` endpoints for Redis-based API bearer token auth.
 
 ## Usage
@@ -182,7 +184,7 @@ await redis
   .exec()
 ```
 
-## Related
+## Example usage
 
 ### xadd
 
@@ -211,3 +213,8 @@ where the client includes the `token` from `/login` in the HTTP `Authorization` 
 ```
 Authorization: Bearer {token}
 ```
+
+## Related
+
+- https://github.com/evanx/fastify-auth-mlk
+- https://github.com/evanx/fastify-xadd-mlk

@@ -1,7 +1,7 @@
 {
-  "name": "fastify-auth-mlk",
+  "name": "fr-client-auth-mlk",
   "version": "0.1.0",
-  "description": "Provide register and login endpoints for simple bearer token auth.  ",
+  "description": "Microservice providing /register and /login endpoints for single client auth.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:evanx/fastify-auth-mlk.git"
+    "url": "git@github.com:evanx/fr-client-auth-mlk.git"
   },
   "keywords": [
     "Redis"
