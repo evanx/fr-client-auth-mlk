@@ -1,10 +1,10 @@
-# fr-client-auth-mlk
+# lula-auth
 
-Microservice providing /register and /login endpoints for single client auth.
+Microservice providing /register and /login endpoints for pre-authorised client auth.
 
 ## Usage
 
-See https://github.com/evanx/fr-client-auth-mlk/blob/master/bin/test.sh
+See https://github.com/evanx/lula-auth/blob/master/bin/test.sh
 
 The Administrator will generate a registration token and deadline for a Client.
 
@@ -19,8 +19,8 @@ regBy=`node -e 'console.log(Date.now()+3600*1000)'`
 The registration details, namely `regToken` and `regBy,` are stored in Redis for the Client e.g. `test-client.`
 
 ```shell
-redis-cli hset fr:client:test-client:h regToken "${regToken}"
-redis-cli hset fr:client:test-client:h regBy "${regBy}"
+redis-cli hset lula:client:test-client:h regToken "${regToken}"
+redis-cli hset lula:client:test-client:h regBy "${regBy}"
 ```
 
 The Client generates their `secret.`
@@ -62,7 +62,7 @@ Authorization: Bearer {token}
 
 See implementation:
 
-https://github.com/evanx/fr-client-auth-mlk/blob/master/lib/server.js
+https://github.com/evanx/lula-auth/blob/master/lib/server.js
 
 ### /register
 

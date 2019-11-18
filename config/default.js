@@ -5,7 +5,7 @@ module.exports = {
   },
   redis: {
     host: '127.0.0.1',
-    keyPrefix: 'fr:',
+    keyPrefix: 'lula:',
   },
   session: {
     ttlSeconds: 3690,

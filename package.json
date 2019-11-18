@@ -1,7 +1,7 @@
 {
-  "name": "fr-client-auth-mlk",
+  "name": "lula-auth",
   "version": "0.1.0",
-  "description": "Microservice providing /register and /login endpoints for single client auth.",
+  "description": "Microservice providing /register and /login endpoints for pre-authorised client auth.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:evanx/fr-client-auth-mlk.git"
+    "url": "git@github.com:evanx/lula-auth.git"
   },
   "keywords": [
     "Redis"
