@@ -111,7 +111,7 @@ Hashes key `client:${client}:h` with field:
 
 ## Example usage
 
-### xadd
+### lula-hub
 
 See https://github.com/evanx/lula-hub
 
