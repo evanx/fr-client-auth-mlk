@@ -113,7 +113,7 @@ Hashes key `client:${client}:h` with field:
 
 ### xadd
 
-See https://github.com/evanx/fastify-xadd-mlk
+See https://github.com/evanx/lula-hub
 
 This project enables Redis stream ingress from authenticated clients via "Bearer" token.
 
@@ -141,5 +141,4 @@ Authorization: Bearer {token}
 
 ## Related
 
-- https://github.com/evanx/fastify-auth-mlk
-- https://github.com/evanx/fastify-xadd-mlk
+- https://github.com/evanx/lula-hub
