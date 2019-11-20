@@ -30,16 +30,16 @@ _hget() {
   redis-cli --raw hget $key $field
 }
 
-redis-cli keys 'fr:*' | xargs -n1 redis-cli del
+redis-cli keys 'lula:*' | xargs -n1 redis-cli del
 
-redis-cli del fr:client:test-client:h
+redis-cli del lula:client:test-client:h
 
 regBy=`node -e 'console.log(Date.now()+3600*1000)'`
 regToken=`node bin/bcrypt.js hash test-regToken`
-redis-cli hset fr:client:test-client:h regToken "${regToken}"
-redis-cli hset fr:client:test-client:h regBy "${regBy}"
+redis-cli hset lula:client:test-client:h regToken "${regToken}"
+redis-cli hset lula:client:test-client:h regBy "${regBy}"
 
-_hgetall fr:client:test-client:h
+_hgetall lula:client:test-client:h
 
 echo '☸ /register'
 curl -s -X 'POST' \
@@ -57,14 +57,14 @@ token=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
 echo "☣ $token"
 
 echo '☰ keys'
-redis-cli keys 'fr:*'
+redis-cli keys 'lula:*'
 
-_hgetall fr:count:login:h
-_hgetall fr:count:register:h
+_hgetall lula:count:login:h
+_hgetall lula:count:register:h
 
-_hgetall fr:client:test-client:h
-_hgetall fr:session:$token:h
-_ttl fr:session:$token:h
-_hget fr:session:$token:h client | grep '^test-client$'
+_hgetall lula:client:test-client:h
+_hgetall lula:session:$token:h
+_ttl lula:session:$token:h
+_hget lula:session:$token:h client | grep '^test-client$'
 
 echo '✅ OK'

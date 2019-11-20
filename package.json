@@ -1,11 +1,11 @@
 {
   "name": "lula-auth",
   "version": "0.1.0",
-  "description": "Microservice providing /register and /login endpoints for pre-authorised client auth.",
+  "description": "Microservice providing /register and /login endpoints for pre-authorized client auth.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node lib/server"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

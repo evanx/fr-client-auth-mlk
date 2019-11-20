@@ -1,6 +1,6 @@
 # lula-auth
 
-Microservice providing /register and /login endpoints for pre-authorised client auth.
+Microservice providing /register and /login endpoints for pre-authorized client auth.
 
 ## Usage
 
