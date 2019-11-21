@@ -108,6 +108,11 @@ Hashes key `client:${client}:h` with field:
 #### Returns
 
 - `token` - a session token
+- `ttlSeconds` - the TTL of the token
+
+This session token is intended to be used as an HTTP auth "Bearer" token.
+
+Note that once the token expires, the client should login again e.g. in the event of a 401 error.
 
 ## Example usage
 
