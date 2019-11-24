@@ -34,10 +34,10 @@ redis-cli keys 'lula:*' | xargs -n1 redis-cli del
 
 redis-cli del lula:client:test-client:h
 
-regBy=`node -e 'console.log(Date.now()+3600*1000)'`
+regDeadline=`node -e 'console.log(Date.now()+3600*1000)'`
 regToken=`node bin/bcrypt.js hash test-regToken`
 redis-cli hset lula:client:test-client:h regToken "${regToken}"
-redis-cli hset lula:client:test-client:h regBy "${regBy}"
+redis-cli hset lula:client:test-client:h regDeadline "${regDeadline}"
 
 _hgetall lula:client:test-client:h
 
