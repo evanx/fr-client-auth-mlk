@@ -56,7 +56,7 @@ Authorization: Bearer {token}
 
 <hr>
 
-![test.sh](/docs/20190903-test.jpg?raw=true 'test.sh')
+![test.sh](/docs/test.jpg?raw=true 'test.sh')
 
 ## Endpoints
 
