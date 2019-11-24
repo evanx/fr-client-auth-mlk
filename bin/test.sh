@@ -50,11 +50,11 @@ curl -s -X 'POST' \
 
 
 echo '☸ /login'
-token=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
+bearerToken=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  http://127.0.0.1:3000/login | jq -r '.token'`
-echo "☣ $token"
+  http://127.0.0.1:3000/login | jq -r '.bearerToken'`
+echo "☣ $bearerToken"
 
 echo '☰ keys'
 redis-cli keys 'lula:*'
@@ -63,8 +63,8 @@ _hgetall lula:count:login:h
 _hgetall lula:count:register:h
 
 _hgetall lula:client:test-client:h
-_hgetall lula:session:$token:h
-_ttl lula:session:$token:h
-_hget lula:session:$token:h client | grep '^test-client$'
+_hgetall lula:session:$bearerToken:h
+_ttl lula:session:$bearerToken:h
+_hget lula:session:$bearerToken:h client | grep '^test-client$'
 
 echo '✅ OK'

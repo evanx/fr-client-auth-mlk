@@ -42,16 +42,16 @@ curl -s -X 'POST' \
 The client logs in using their `secret,` and receives a session token.
 
 ```shell
-token=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
+bearerToken=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  http://127.0.0.1:3000/login | jq -r '.token'`
+  http://127.0.0.1:3000/login | jq -r '.bearerToken'`
 ```
 
 The client accesses a related API using the session token as a `Bearer` token in the `Authorization` header.
 
 ```
-Authorization: Bearer {token}
+Authorization: Bearer {bearerToken}
 ```
 
 <hr>
@@ -107,12 +107,13 @@ Hashes key `client:${client}:h` with field:
 
 #### Returns
 
-- `token` - a session token
-- `ttlSeconds` - the TTL of the token
+- `bearerToken` - a session token
+- `ttlSeconds` - the TTL of the `bearerToken`
 
 This session token is intended to be used as an HTTP auth "Bearer" token.
 
-Note that once the token expires, the client should login again e.g. in the event of a 401 error.
+Note that once the token expires, the client will observe a 401 HTTP error code,
+and should login again.
 
 ## Example usage
 
