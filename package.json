@@ -4,8 +4,9 @@
   "description": "Microservice providing /register and /login endpoints for pre-authorized client auth.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test jest",
-    "start": "node index.js"
+    "test": "NODE_CONFIG_ENV=testing jest",
+    "start": "node index.js",
+    "start:dev": "NODE_ENV=development node index.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "fastify-redis": "^3.1.1",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
+    "otplib": "^11.0.1",
     "pino-pretty": "^3.2.0"
   }
 }

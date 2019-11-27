@@ -35,22 +35,24 @@ redis-cli keys 'lula:*' | xargs -n1 redis-cli del
 redis-cli del lula:client:test-client:h
 
 regDeadline=`node -e 'console.log(Date.now()+3600*1000)'`
-regToken=`node bin/bcrypt.js hash test-regToken`
-redis-cli hset lula:client:test-client:h regToken "${regToken}"
+otpSecret=`node scripts/generateOtpSecret.js`
+redis-cli hset lula:client:test-client:h otpSecret "${otpSecret}"
 redis-cli hset lula:client:test-client:h regDeadline "${regDeadline}"
 
 _hgetall lula:client:test-client:h
 
+otp=`node scripts/generateOtp.js "${otpSecret}"`
+
 echo '☸ /register'
 curl -s -X 'POST' \
-  -d 'client=test-client&secret=my-secret&regToken=test-regToken' \
+  -d "client=test-client&secret=my-secret&otp=${otp}" \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
   http://127.0.0.1:3000/register | jq -r '.code' | grep -q '^200$'
 
 
 echo '☸ /login'
-bearerToken=`curl -s -X 'POST' -d 'client=test-client&secret=my-secret' \
+bearerToken=`curl -s -X 'POST' -d "client=test-client&secret=my-secret&otp=${otp}" \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
   http://127.0.0.1:3000/login | jq -r '.bearerToken'`
