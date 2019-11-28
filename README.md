@@ -6,6 +6,8 @@ Microservice providing /register and /login endpoints for pre-authorized client 
 
 See https://github.com/evanx/lula-auth/blob/master/scripts/test.sh
 
+![test.sh](/docs/test.jpg?raw=true 'test.sh')
+
 The Administrator will provision a TOPT secret and a registration deadline for the client.
 
 ```shell
@@ -59,10 +61,6 @@ The client accesses a related API using the session token as a `Bearer` token in
 ```
 Authorization: Bearer {bearerToken}
 ```
-
-<hr>
-
-![test.sh](/docs/test.jpg?raw=true 'test.sh')
 
 ## Endpoints
 
