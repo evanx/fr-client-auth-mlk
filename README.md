@@ -3,16 +3,19 @@
 Lula-auth is a scaleable microservice providing /register and /login endpoints for pre-authorized client auth,
 intended for communications between distributed services and/or remote devices.
 
-Lula-auth is used by Lula-hub - see https://github.com/evanx/lula-hub.
+Lula-auth is used for Lula-hub by Lula-client - see https://github.com/evanx/lula-hub
 
 Lula-hub syncs Redis streams. Its limitation in IoT is that client devices must run Redis 5.
 
 ## Deployment recommendations
 
-Note that each instance of this service should be rate limited to 4 requests per second e.g. via an Nginx Ingress Controller for Kubernetes.
+Note that each instance of this service should be rate limited to 2 requests per second e.g. via an Nginx Ingress Controller for Kubernetes.
 
-Each endpoint can be rate limited by IP to 1 request per 10 seconds. Therefore client retries must be scheduled at 15 second intervals,
-with exponential backoff, e.g. see https://github.com/evanx/lula-client.
+If the Bcrypt "rounds" are reduced from 12 to 10, then the rate limiting can be increased to 10 requests per second, but "your mileage may vary." For the minimum Bcrypt rounds of 8, you could load test at 40 requests per second.
+
+If a request is rejected by rate limiting, your load balancer should return `503` ("Service temporarily unavailable"), and the clients should retry with exponential backoff.
+
+Each endpoint can be rate limited by IP to 1 request per 8 seconds. Then client retries can be scheduled with a minimum backoff of 10 seconds.
 
 ## Usage
 
