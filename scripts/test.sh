@@ -48,14 +48,14 @@ curl -s -X 'POST' \
   -d "client=test-client&secret=my-secret&otp=${otp}" \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  http://127.0.0.1:3000/register | jq -r '.code' | grep -q '^200$'
+  http://127.0.0.1:3001/register | jq -r '.code' | grep -q '^200$'
 
 
 echo '☸ /login'
 bearerToken=`curl -s -X 'POST' -d "client=test-client&secret=my-secret&otp=${otp}" \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  http://127.0.0.1:3000/login | jq -r '.bearerToken'`
+  http://127.0.0.1:3001/login | jq -r '.bearerToken'`
 echo "☣ $bearerToken"
 
 echo '☰ keys'

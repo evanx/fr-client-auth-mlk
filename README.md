@@ -6,11 +6,7 @@ Microservice providing /register and /login endpoints for pre-authorized client 
 
 See https://github.com/evanx/lula-auth/blob/master/scripts/test.sh
 
-The Administrator will generate a secret password, an TOPT secret and a registration deadline for the client.
-
-```
-secret=`openssl rand 24 -base64`
-```
+The Administrator will provision a TOPT secret and a registration deadline for the client.
 
 ```shell
 otpSecret=`node scripts/generateOtpSecret.js`
@@ -23,9 +19,14 @@ regDeadline=`node -e 'console.log(Date.now()+3600*1000)'`
 These details are stored in Redis for the client e.g. `test-client.`
 
 ```shell
-redis-cli hset lula:client:test-client:h secret "${secret}"
 redis-cli hset lula:client:test-client:h otpSecret "${otpSecret}"
 redis-cli hset lula:client:test-client:h regDeadline "${regDeadline}"
+```
+
+The client generates its secret password for authentication:
+
+```
+secret=`openssl rand 24 -base64`
 ```
 
 The client registers their `secret` using a one-time passcode generated from their provisioned `otpSecret.`
@@ -39,7 +40,7 @@ curl -s -X 'POST' \
   -d "client=test-client&secret=my-secret&otp=${otp}" \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  http://127.0.0.1:3000/register
+  http://127.0.0.1:3001/register
 ```
 
 The client logs in using their `secret` and `otp` and receives a session token.
@@ -50,7 +51,7 @@ bearerToken=`
   -d "client=test-client&secret=my-secret&otp=${otp}" \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  http://127.0.0.1:3000/login | jq -r '.bearerToken'`
+  http://127.0.0.1:3001/login | jq -r '.bearerToken'`
 ```
 
 The client accesses a related API using the session token as a `Bearer` token in the `Authorization` header.
