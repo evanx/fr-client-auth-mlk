@@ -1,6 +1,18 @@
 # lula-auth
 
-Microservice providing /register and /login endpoints for pre-authorized client auth.
+Lula-auth is a scaleable microservice providing /register and /login endpoints for pre-authorized client auth,
+intended for communications between distributed services and/or remote devices.
+
+Lula-auth is used by Lula-hub - see https://github.com/evanx/lula-hub.
+
+Lula-hub syncs Redis streams. Its limitation in IoT is that client devices must run Redis 5.
+
+## Deployment recommendations
+
+Note that each instance of this service should be rate limited to 4 requests per second e.g. via an Nginx Ingress Controller for Kubernetes.
+
+Each endpoint can be rate limited by IP to 1 request per 10 seconds. Therefore client retries must be scheduled at 15 second intervals,
+with exponential backoff, e.g. see https://github.com/evanx/lula-client.
 
 ## Usage
 
