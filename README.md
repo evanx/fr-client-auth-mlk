@@ -28,7 +28,7 @@ redis-cli hset lula:client:test-client:h otpSecret "${otpSecret}"
 redis-cli hset lula:client:test-client:h regDeadline "${regDeadline}"
 ```
 
-The client registers their `secret` using the `optSecret` provided by the Administrator.
+The client registers their `secret` using a one-time passcode generated from their provisioned `otpSecret.`
 
 ```shell
 otp=`node scripts/generateOtp.js "${otpSecret}"`

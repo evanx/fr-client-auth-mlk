@@ -14,5 +14,6 @@ module.exports = {
   },
   logger: {
     level: 'LOG_LEVEL',
+    prettyPrint: 'LOG_PRETTY',
   },
 }

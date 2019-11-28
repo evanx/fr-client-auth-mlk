@@ -4,7 +4,7 @@
   "description": "Microservice providing /register and /login endpoints for pre-authorized client auth.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_CONFIG_ENV=testing jest",
+    "test": "NODE_CONFIG_ENV=testing jest --runInBand",
     "start": "node index.js",
     "start:dev": "NODE_ENV=development node index.js"
   },
