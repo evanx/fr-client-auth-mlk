@@ -9,15 +9,11 @@ Lula-hub syncs Redis streams. Its limitation in IoT is that client devices must 
 
 ## Deployment recommendations
 
-Note that each instance of this service should be rate limited to 2 requests per second e.g. via an Nginx Ingress Controller for Kubernetes.
-
-Since we have 2 factor authentication (Bcrypt and TOTP), and if we ensure rate limiting to prevent bruce force attacks, then we can decrease the Bcrypt "rounds" to increase capacity per instance/CPU.
-
-If the Bcrypt "rounds" are reduced from 12 to 10, then the rate limiting can be increased to 10 requests per second, but "your mileage may vary." For the minimum Bcrypt rounds of 8, you could load test at 40 requests per second.
+Based on the assumption that Bcrypt with 12 rounds takes 300ms to authenticate, each instance of this service should be rate limited to 2 requests per second e.g. via an Nginx Ingress Controller for Kubernetes.
 
 If a request is rejected by rate limiting, your load balancer should return `503` ("Service temporarily unavailable"), and the clients should retry with exponential backoff.
 
-Each endpoint can be rate limited by IP to 1 request per 8 seconds. Then client retries can be scheduled with a minimum backoff of 10 seconds.
+Each endpoint can be rate limited by source IP to 1 request per 8 seconds. Then client retries can be scheduled with a minimum backoff of 10 seconds.
 
 ## Usage
 
