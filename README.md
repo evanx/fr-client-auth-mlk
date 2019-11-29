@@ -13,7 +13,9 @@ Based on the assumption that Bcrypt with 12 rounds takes 300ms to authenticate, 
 
 If a request is rejected by rate limiting, your load balancer should return `503` ("Service temporarily unavailable"), and the clients should retry with exponential backoff.
 
-Each endpoint can be rate limited by source IP to 1 request per 8 seconds. Then client retries can be scheduled with a minimum backoff of 10 seconds.
+Each endpoint can be rate limited by source IP to 1 request per 10 seconds. Then client retries can be scheduled with a minimum backoff of 12 seconds.
+
+In order to support overall rate limiting by source IP to 1 request per 10 seconds, the client should wait after `/register` for 12 seconds before `/login.`
 
 ## Usage
 
