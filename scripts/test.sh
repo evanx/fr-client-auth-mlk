@@ -35,13 +35,13 @@ redis-cli keys 'lula:*' | xargs -n1 redis-cli del
 redis-cli del lula:client:test-client:h
 
 regDeadline=`node -e 'console.log(Date.now()+3600*1000)'`
-otpSecret=`node scripts/generateOtpSecret.js`
+otpSecret=`node scripts/generate-otp-secret.js`
 redis-cli hset lula:client:test-client:h otpSecret "${otpSecret}"
 redis-cli hset lula:client:test-client:h regDeadline "${regDeadline}"
 
 _hgetall lula:client:test-client:h
 
-otp=`node scripts/generateOtp.js "${otpSecret}"`
+otp=`node scripts/generate-otp.js "${otpSecret}"`
 
 echo '☸ /register'
 curl -s -X 'POST' \

@@ -26,7 +26,7 @@ See https://github.com/evanx/lula-auth/blob/master/scripts/test.sh
 The Administrator will provision a TOPT secret and a registration deadline for the client.
 
 ```shell
-otpSecret=`node scripts/generateOtpSecret.js`
+otpSecret=`node scripts/generate-otp-secret.js`
 ```
 
 ```shell
@@ -49,7 +49,7 @@ secret=`openssl rand 24 -base64`
 The client registers their `secret` using a one-time passcode generated from their provisioned `otpSecret.`
 
 ```shell
-otp=`node scripts/generateOtp.js "${otpSecret}"`
+otp=`node scripts/.js "${otpSecret}"`
 ```
 
 ```shell
