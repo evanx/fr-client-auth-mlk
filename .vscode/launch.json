@@ -20,7 +20,7 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "env": {
-        "NODE_ENV": "test"
+        "NODE_CONFIG_ENV": "testing"
       }
     },
     {

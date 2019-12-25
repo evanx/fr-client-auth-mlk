@@ -5,8 +5,6 @@ intended for communications between distributed services and/or remote devices.
 
 Lula-auth is used for Lula-hub by Lula-client - see https://github.com/evanx/lula-hub
 
-Lula-hub syncs Redis streams. Its limitation in IoT is that client devices must run Redis 5.
-
 ## Deployment recommendations
 
 Based on the assumption that Bcrypt with 12 rounds takes 300ms to authenticate, each instance of this service should be rate limited to 2 requests per second e.g. via an Nginx Ingress Controller for Kubernetes.
@@ -63,18 +61,18 @@ curl -s -X 'POST' \
 The client logs in using their `secret` and `otp` and receives a session token.
 
 ```shell
-bearerToken=`
+sessionToken=`
   curl -s -X 'POST' \
   -d "client=test-client&secret=my-secret&otp=${otp}" \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  http://127.0.0.1:3001/login | jq -r '.bearerToken'`
+  http://127.0.0.1:3001/login | jq -r '.sessionToken'`
 ```
 
 The client accesses a related API using the session token as a `Bearer` token in the `Authorization` header.
 
 ```
-Authorization: Bearer {bearerToken}
+Authorization: Bearer {sessionToken}
 ```
 
 ## Endpoints
@@ -126,8 +124,8 @@ Hashes key `client:${client}:h` with field:
 
 #### Returns
 
-- `bearerToken` - a session token
-- `ttlSeconds` - the TTL of the `bearerToken`
+- `sessionToken` - a session token
+- `ttlSeconds` - the TTL of the `sessionToken`
 
 This session token is intended to be used as an HTTP auth "Bearer" token.
 
@@ -145,7 +143,10 @@ This project enables Redis stream ingress from authenticated clients via "Bearer
 ```javascript
 fastify.register(require('fastify-bearer-auth'), {
   auth: async (token, request) => {
-    const client = await fastify.redis.hget(`session:${token}:h`, 'client')
+    const client = await fastify.redis.hget(
+      `session:${sha1(token)}:h`,
+      'client',
+    )
     if (client) {
       request.client = client
       return true
@@ -158,7 +159,7 @@ fastify.register(require('fastify-bearer-auth'), {
 })
 ```
 
-where the client includes the `token` from `/login` in the HTTP `Authorization` header:
+where the request includes the `sessionToken` from `/login` in the HTTP `Authorization` header:
 
 ```
 Authorization: Bearer {token}
