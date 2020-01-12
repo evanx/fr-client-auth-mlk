@@ -88,6 +88,8 @@ _keys
 _hgetall lula:count:login:h
 _hgetall lula:count:register:h
 
+echo
+
 _hgetall lula:client:test-client:h
 _hgetall lula:session:$sessionTokenSha:h
 _ttl lula:session:$sessionTokenSha:h
@@ -95,3 +97,4 @@ _hgetall lula:session:$sessionTokenSha:h
 _hget lula:session:$sessionTokenSha:h client | grep '^test-client$'
 
 echo '✅ OK'
+

@@ -19,7 +19,7 @@ In order to support overall rate limiting by source IP to 1 request per 10 secon
 
 See https://github.com/evanx/lula-auth/blob/master/scripts/test.sh
 
-![test.sh](/docs/test.jpg?raw=true 'test.sh')
+![test.sh](/docs/test-001.jpg?raw=true 'test.sh')
 
 The Administrator will provision a TOPT secret and a registration deadline for the client.
 
