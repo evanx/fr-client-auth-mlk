@@ -5,6 +5,8 @@ intended for communications between distributed services and/or remote devices.
 
 Lula-auth is used for Lula-hub by Lula-client - see https://github.com/evanx/lula-hub
 
+![Jest test](/docs/testing.jpg?raw=true 'Jest')
+
 ## Deployment recommendations
 
 Based on the assumption that Bcrypt with 12 rounds takes 300ms to authenticate, each instance of this service should be rate limited to 2 requests per second e.g. via an Nginx Ingress Controller for Kubernetes.
